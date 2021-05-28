@@ -1,0 +1,44 @@
+{% load i18n %}
+<header class="site-header">
+  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+    <div class="container">
+      <a class="navbar-brand mr-4" href="{% url 'questionnary:index' %}">{% trans 'NavQuestionnaryLink' %}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto">
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'questionnary:about' %}">About</a>
+          {% endif %}
+        </div>
+        <!-- Navbar Right Side -->
+        <div class="navbar-nav">
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+          {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+          {% endif %}
+        </div>
+        <nav class="navbar-nav">
+          <form action="{% url 'questionnary:set_language' %}" method="post">
+              {% csrf_token %}
+              <input name="next" type="hidden" value="{{ redirect_to }}" />
+              <select name="language">
+                  {% get_current_language as LANGUAGE_CODE %}
+                  {% get_available_languages as LANGUAGES %}
+                  {% for lang in LANGUAGES %}
+                      <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                          {{ lang.1 }} ({{ lang.0 }})
+                      </option>
+                  {% endfor %}
+              </select>
+              <input type="submit" value="Go" />
+          </form>
+        </nav>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,13 @@
+{% load i18n %}
+{% if user.is_authenticated %}
+  <div class="content-section">
+    <h3>Sidebar</h3>
+    <p class='text-muted'>TODO_info_to_add.
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-light">TODO_li_1</li>
+        <li class="list-group-item list-group-item-light">TODO_li_2</li>
+        <li class="list-group-item list-group-item-light">TODO_li_3</li>
+      </ul>
+    </p>
+  </div>
+{% endif %}

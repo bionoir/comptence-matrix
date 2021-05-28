@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <button class="btn btn-primary" type="submit">Login</button>
+            </form>
+        </div>
+        <hr class="mb-3">
+        <div>
+            <small class="text-muted">
+                Need An Account ? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            </small>
+        </div>
+    </div>
+{% endblock %}
