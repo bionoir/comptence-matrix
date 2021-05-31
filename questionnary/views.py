@@ -58,11 +58,12 @@ def questionnary_answer_edit(request, question_id):
     print(f'Edition formulaire avec utilisateur : {request.user}')
     my_raw_form = RawAnswerForm(request.POST or None, user=request.user, question_id=question_id)
     if my_raw_form.is_valid():
+        print('Data are valid!')
         print(my_raw_form.cleaned_data)
         new_answer = Answer()
         new_answer.user = request.user
         new_answer.question = Question.objects.filter(pk=question_id).get()
-        #
+
         drop_down_text = my_raw_form.cleaned_data["answer_text"]
         if drop_down_text == 'Other':
             new_answer.answer_text = my_raw_form.cleaned_data["other_choice"]
@@ -71,13 +72,10 @@ def questionnary_answer_edit(request, question_id):
 
         new_answer.answer_level = my_raw_form.cleaned_data["answer_level"]
 
-        # answers_set = Answer.objects.filter(user=request.user, question=new_answer.question).values_list('answer_text', flat=True).distinct()
-        # if new_answer.answer_text in answers_set:
-        #     print("Doublon!")
-
         new_answer.save()
         my_raw_form = RawAnswerForm(user=request.user, question_id=question_id)
     else:
+
         print(my_raw_form.errors)
 
     question = Question.objects.filter(pk=question_id).get()

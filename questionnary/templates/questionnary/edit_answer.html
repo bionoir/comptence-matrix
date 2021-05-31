@@ -23,7 +23,7 @@
                     <td>
                         <form action="{% url 'questionnary:delete_answer' answer_unit.pk %}" method="POST">
                             {% csrf_token %}
-                            <input class="btn btn-default btn-danger" type="submit" value="X"/>
+                            <input class="btn btn-outline-danger btn-sm" type="submit" value="X"/>
                         </form>
                     </td>
                 </tr>
@@ -32,144 +32,56 @@
         </table>
 
 
-<!--        <div>-->
-<!--            {{ form.errors }}-->
-<!--            <form id="addAnswerForm" method="POST">-->
-<!--                {% csrf_token %}-->
-<!--                <div class="overflow-hidden">-->
-<!--                    <div class="row gy-2">-->
-<!--                        <div class="col-4">-->
-<!--                            <div class="p-1">-->
-<!--                                <div class="form-floating">-->
-<!--                                    <select id="answer_text" name="answer_text" class="form-select">-->
-<!--                                        {% for choice_unit in choice_list %}-->
-<!--                                            <option value="{{ choice_unit.choice_text }}">{{ choice_unit.choice_text }}</option>-->
-<!--                                        {% endfor %}-->
-<!--                                            <option value="Other">Other...</option>-->
-<!--                                    </select>-->
-<!--                                    <label for="answer_text">Skill</label>-->
-<!--                                 </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
 
-<!--                        <div class="col-4">-->
-<!--                            <div class="p-1">-->
-<!--                                <div class="form-floating">-->
-<!--                                    <select id="answer_level" name="answer_level" class="form-select">-->
-<!--                                        <option value="1">1</option>-->
-<!--                                        <option value="2">2</option>-->
-<!--                                        <option value="3">3</option>-->
-<!--                                        <option value="4">4</option>-->
-<!--                                        <option value="5">5</option>-->
-<!--                                    </select>-->
-<!--                                    <label for="answer_level">Level</label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="col-3">-->
-<!--                            <div class="p-2">-->
-<!--                                &lt;!&ndash;<button name="addskill" id="addskill" type="submit" class="btn btn-primary">Add</button>&ndash;&gt;-->
-<!--                                <div class="text-left">-->
-<!--                                    <a class="btn btn-primary btn-lg" onclick="document.getElementById('addAnswerForm').submit();">Send</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="row gy-2">-->
-<!--                        <div class="col-8">-->
-<!--                            <div class="p-1">-->
-<!--                                <div id="otherchoice" class="form-floating otherchoice" style="display:none">-->
-<!--                                    <input type='text' class="form-control" name='other_choice' placeholder="Enter a not listed choice" />-->
-<!--                                    <label for="otherchoice">Enter another choice</label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-
-        {{ form.errors }}
 
         <table class="table">
             <tbody>
-                <form id="addAnswerForm" method="POST">
-                {% csrf_token %}
-                    <tr>
-                        <td>
-                            <div class="col-md-4">
-                                <select id="answer_text" name="answer_text" class="selectpicker" data-live-search="true" aria-label=".form-select-sm example">
-                                    {% for choice_unit in choice_list %}
-                                        <option value="{{ choice_unit.choice_text }}">{{ choice_unit.choice_text }}</option>
-                                    {% endfor %}
-                                        <option value="Other">Other...</option>
-                              </select>
+                <tr>
+                    <td>
+                        {{ form.errors }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form id="addAnswerForm" method="POST" class="row g-3 align-items-center">
+                        {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="answer_text" class="form-label">New skill</label>
+                                    <select id="answer_text" name="answer_text" class="selectpicker" data-style="btn-outline-secondary" data-live-search="true" aria-label=".form-select-sm example">
+                                        {% for choice_unit in choice_list %}
+                                            <option value="{{ choice_unit.choice_text }}">{{ choice_unit.choice_text }}</option>
+                                        {% endfor %}
+                                            <option value="Other">Other...</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="answer_level" class="form-label">Level</label>
+                                    <select id="answer_level" name="answer_level" class="selectpicker" data-style="btn-outline-secondary" aria-label=".form-select-sm example">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div id="otherchoice" class="otherchoice" style="display:none">
+                                        <input type='text' class="form-control" name='other_choice' placeholder="Enter a not listed choice" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button class="btn btn-outline-primary" onclick="document.getElementById('addAnswerForm').submit();">Send</button>
+                                </div>
                             </div>
-                        </td>
-                        <td>
-                            <div class="col-md-4">
-                                <select id="answer_level" name="answer_level" class="selectpicker" aria-label=".form-select-sm example">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-<!--                                <div class="dropdown">-->
-<!--                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                                        Level selection-->
-<!--                                    </button>-->
-<!--                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">-->
-<!--                                        <li><a class="dropdown-item" href="#">1</a></li>-->
-<!--                                        <li><a class="dropdown-item" href="#">2</a></li>-->
-<!--                                        <li><a class="dropdown-item" href="#">3</a></li>-->
-<!--                                        <li><a class="dropdown-item" href="#">4</a></li>-->
-<!--                                        <li><a class="dropdown-item" href="#">5</a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-                        </td>
-                        <td>
-                            <div class="text-left">
-                                <button class="btn btn-primary btn-lg" onclick="document.getElementById('addAnswerForm').submit();">Send</button>
-                            </div>
-                        </td>
-                    </tr>
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                                                                <div class="form-floating">-->
-<!--                                    <select id="answer_text" name="answer_text" class="form-select">-->
-<!--                                        {% for choice_unit in choice_list %}-->
-<!--                                            <option value="{{ choice_unit.choice_text }}">{{ choice_unit.choice_text }}</option>-->
-<!--                                        {% endfor %}-->
-<!--                                            <option value="Other">Other...</option>-->
-<!--                                    </select>-->
-<!--                                    <label for="answer_text">Skill</label>-->
-<!--                                 </div>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-                    <tr>
-                        <td>
-                            <div id="otherchoice2" class="form-floating otherchoice" style="display:none">
-                                <input type='text' class="form-control" name='other_choice' placeholder="Enter a not listed choice" />
-                                <label for="otherchoice2">Enter another choice</label>
-                            </div>
-                        </td>
-                    </tr>
-                </form>
+
+                        </form>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
-<!--    <hr class="col-3 col-md-2 mb-5">-->
-<!--    <div class="overflow-hidden">-->
-<!--        <div class="row gy-2">-->
-<!--            <div class="col-4">-->
-<!--                <div class="p-1">-->
-<!--                    <button class="btn btn-primary">Finished</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 {% endblock %}

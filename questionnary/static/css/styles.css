@@ -1,1 +1,7 @@
-.top-buffer { margin-top:1rem; }
+.top-buffer {
+    margin-top:1rem;
+}
+
+.selectpicker .test1 {
+    background-color: white;
+}
