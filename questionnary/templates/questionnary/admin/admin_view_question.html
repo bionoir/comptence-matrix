@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for question in questions_to_display %}
+        <div>
+            <h1>Question</h1>
+            {{ question.translation_code }}
+            {{ question.translation_text }}
+        </div>
+    {% endfor %}
+{% endblock %}

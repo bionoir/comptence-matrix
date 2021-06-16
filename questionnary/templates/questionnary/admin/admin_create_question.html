@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-12 mb-0">
+                {{ form_question.question_text|as_crispy_field }}
+            </div>
+        </div>
+        <div><span>Translations</span></div>
+        <table>
+            <!-- {{ form_lang_tradset }} -->
+            {% for form in form_lang_tradset.forms %}
+                <tr>
+                    {% for field in form %}
+                        <td>
+                            {{ field }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!--
+        {{ form_lang_tradset.management_form }}
+            {% for single_form in form_lang_tradset %}
+
+            {% endfor %}
+        -->
+
+        <!--
+        {% get_available_languages as LANGUAGES %}
+        {% for lang in LANGUAGES %}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <div class="input-group mb-1">
+                        <label class="input-group-text" for="autoSizingInputGroup{{ forloop.counter }}">{{ lang.1 }}</label>
+                        <input type="text" class="form-control" id="autoSizingInputGroup{{ forloop.counter }}" placeholder="Provide question in {{ lang.1 }}">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        -->
+        <input class="btn btn-outline-primary" type="submit" value="Add question"/>
+    </form>
+
+{% endblock %}

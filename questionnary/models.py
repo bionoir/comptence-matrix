@@ -30,3 +30,13 @@ class Answer(models.Model):
 
     def __str__(self):
         return "%s %s with level %i" % (self.question, self.answer_text, self.answer_level)
+
+
+class KeyWords(models.Model):
+    key_word = models.CharField(max_length=500)
+
+
+class Translations(models.Model):
+    language_code = models.CharField(max_length=64)
+    translation = models.CharField(max_length=500)
+    key_word = models.ForeignKey('KeyWords', on_delete=models.CASCADE)

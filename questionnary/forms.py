@@ -1,14 +1,37 @@
 from django import forms
+from django.forms import formset_factory
 from .models import Question, Choice, Answer
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class QuestionForm(forms.ModelForm):
+    question_text = forms.CharField(max_length=500)
+
     class Meta:
         model = Question
         fields = [
             'question_text'
         ]
+
+
+class ChoicesForm(forms.Form):
+    choice_tag = forms.CharField(max_length=32,
+                                 widget=forms.TextInput(attrs={'placeholder': 'Enter a possible choice...'}))
+
+
+class LanguageTradForm(forms.Form):
+    lang_code = forms.CharField(max_length=16, disabled=True)
+    lang_trad = forms.CharField(max_length=128,
+                                       widget=forms.TextInput(attrs={'placeholder': 'Enter question translation...'}))
+
+    def __init__(self,*args,**kwargs):
+        super(LanguageTradForm,self).__init__(*args,**kwargs)
+        self.empty_permitted = False
+
+
+class QuestionFormNoModel(forms.Form):
+    question_text = forms.CharField(max_length=64,
+                                    widget=forms.TextInput(attrs={'placeholder': 'Question tag (must be unique!)'}))
 
 
 class AnswerForm(forms.ModelForm):
